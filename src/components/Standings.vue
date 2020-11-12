@@ -59,7 +59,8 @@ export default {
     data(){
         return{
             listData:[{teamName:"",quarterPos:"",quarterScore:"",semiPos:"",semiScore:"",finalPos:"",finalScore:""}],
-            qStyle:["5vh","0vh","5vh","0vh","5vh","0vh","5vh","0vh"],
+            aqList:[{teamName:"",quarterPos:"",quarterScore:"",semiPos:"",semiScore:"",finalPos:"",finalScore:""}],
+            asList:[{teamName:"",quarterPos:"",quarterScore:"",semiPos:"",semiScore:"",finalPos:"",finalScore:""}],
             showA:true,
             showB:false,
             finals:false,
@@ -74,8 +75,10 @@ export default {
             const creds = require('./client_secret.json');
 
             var tempData=[];
+            var aqData=[];
+            var asData=[];
 
-            async function accessSpreadsheet(tempData){
+            async function accessSpreadsheet(){
                 const doc = new GoogleSpreadsheet('1DghFM-X5N4cbvHXYiN5bLc5gYLOo2-V7QqyZfelq2vw');
                 await promisify(doc.useServiceAccountAuth)(creds);
                 const info = await promisify(doc.getInfo)();
@@ -86,13 +89,21 @@ export default {
                 });
 
                 rows.forEach( row => {
+                    if(row.semipos > 0){
+                        aqData.push({teamName:row.teamname,quarterPos:row.quarterpos,quarterScore:row.quarterscore,semiPos:row.semipos,semiScore:row.semiscore,finalPos:row.finalpos,finalScore:row.finalscore});
+                    }
+                    if(row.finalpos > 0){
+                        asData.push({teamName:row.teamname,quarterPos:row.quarterpos,quarterScore:row.quarterscore,semiPos:row.semipos,semiScore:row.semiscore,finalPos:row.finalpos,finalScore:row.finalscore});
+                    }
                     tempData.push({teamName:row.teamname,quarterPos:row.quarterpos,quarterScore:row.quarterscore,semiPos:row.semipos,semiScore:row.semiscore,finalPos:row.finalpos,finalScore:row.finalscore});
                 })
             }
 
-            accessSpreadsheet(tempData);
+            accessSpreadsheet();
 
             this.listData = tempData;
+            this.aqList = aqData;
+            this.asList = asData;
         },
         toggleA(){
             this.showA = true;
@@ -111,14 +122,6 @@ export default {
             this.showB = false;
             this.finals = true;
         },
-        test(){
-            if(this.ctr < 8)
-            {
-                console.log(this.qStyle)
-                this.ctr+=1;
-                console.log(this.ctr)
-            }
-        }
     },
     beforeMount(){
         this.loadData();
@@ -291,5 +294,7 @@ export default {
 
             accessSpreadsheet();
             tempData.push[{teamName:row.teamname,quarterPos:row.quarterpos,quarterScore:row.quarterscore,semiPos:row.semipos,semiScore:row.semiscore,finalPos:row.finalpos,finalScore:row.finalscore}]
+
+            tempList.push({teamName:this.listData[i].teamname,quarterPos:this.listData[i].quarterpos,quarterScore:this.listData[i].quarterscore,semiPos:this.listData[i].semipos,semiScore:this.listData[i].semiscore,finalPos:this.listData[i].finalpos,finalScore:this.listData[i].finalscore})
 -->
 
