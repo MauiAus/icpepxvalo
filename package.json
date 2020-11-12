@@ -11,8 +11,9 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "express": "^4.17.1",
-    "google-spreadsheet": "^2.0.6",
+    "google-spreadsheet": "^3.0.13",
     "vue": "^2.6.11",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.4.9"
   },
   "devDependencies": {

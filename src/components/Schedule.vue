@@ -30,33 +30,19 @@ export default {
     },
     methods:{
         loadData(){
-            const GoogleSpreadsheet = require('google-spreadsheet');
-            const { promisify } = require('util');
-
-            const creds = require('./client_secret.json');
-
-            var tempData=[];
-
-            async function accessSpreadsheet(){
-                const doc = new GoogleSpreadsheet('1c1HXy7YA9ycbMr4N5z-rqlp_ZAwWARYWL0ckKp1LyTw');
-                await promisify(doc.useServiceAccountAuth)(creds);
-                const info = await promisify(doc.getInfo)();
-                const sheet = info.worksheets[0];
-                
-                const rows = await promisify(sheet.getRows)({
-                    offset: 1
-                });
-
-                rows.forEach( row => {
-                    tempData.push({id:row.id,day:row.day,date:row.date,time:row.time,teama:row.teama,ascore:row.ascore,bscore:row.bscore,teamb:row.teamb,type:row.type});
-                })
-
-
-            }
-            accessSpreadsheet();
-            this.schedList = tempData;
-
-            console.log(this.schedList)
+            this.$http.get('https://icpepvaloact2.firebaseio.com/Mastersheet.json').then(function(data){
+                return data.json();
+            }).then(function(data){
+                var tempArr= [];
+                for(let key in data){
+                    tempArr.push(data[key]);
+                }
+                console.log(tempArr.length)
+                for(let i = 1; i < tempArr.length; i++){
+                    this.schedList.push({id:tempArr[i].Id,day:tempArr[i].Day,date:tempArr[i].Date,time:tempArr[i].Time,teama:tempArr[i].Teama,ascore:tempArr[i].Ascore,bscore:tempArr[i].Bscore,teamb:tempArr[i].Teamb,type:tempArr[i].Type});
+                }
+                console.log(this.schedList)
+            })
         },
         dateCheck(date){
             if(this.dateTemp == ""){
@@ -81,9 +67,9 @@ export default {
             }
         }
     },
-    beforeMount(){
+    created(){
         this.loadData();
-    }
+    },
 }
 </script>
 
@@ -136,4 +122,33 @@ export default {
 }
 </style>
 
+
+<!--
+const GoogleSpreadsheet = require('google-spreadsheet');
+            const { promisify } = require('util');
+
+            const creds = require('./client_secret.json');
+
+            var tempData=[];
+
+            async function accessSpreadsheet(){
+                const doc = new GoogleSpreadsheet('1c1HXy7YA9ycbMr4N5z-rqlp_ZAwWARYWL0ckKp1LyTw');
+                await promisify(doc.useServiceAccountAuth)(creds);
+                const info = await promisify(doc.getInfo)();
+                const sheet = info.worksheets[0];
+                
+                const rows = await promisify(sheet.getRows)({
+                    offset: 1
+                });
+
+                rows.forEach( row => {
+                    tempData.push({id:row.id,day:row.day,date:row.date,time:row.time,teama:row.teama,ascore:row.ascore,bscore:row.bscore,teamb:row.teamb,type:row.type});
+                })
+
+
+            }
+            accessSpreadsheet();
+            this.schedList = tempData;
+
+-->
 
