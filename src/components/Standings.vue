@@ -3,7 +3,7 @@
         <div id="navBox">
             <p v-on:click="toggleA()">Group A</p>
             <p v-on:click="toggleB()">Group B</p>
-            <p v-on:click="toggleF()">Finals</p>
+            <!--<p v-on:click="toggleF()">Finals</p>-->
         </div>
         <div id="bracketA">
             <div id="quarter">
@@ -91,8 +91,12 @@ export default {
     data(){
         return{
             listData:[{teamName:"",quarterPos:"",quarterScore:"",semiPos:"",semiScore:"",finalPos:"",finalScore:""}],
-            aqList:[{teamName:"",quarterPos:"",quarterScore:"",semiPos:"",semiScore:"",finalPos:"",finalScore:""}],
-            asList:[{teamName:"",quarterPos:"",quarterScore:"",semiPos:"",semiScore:"",finalPos:"",finalScore:""}],
+            aqList:[
+                {teamName:"",quarterPos:"",quarterScore:"",semiPos:"",semiScore:"",finalPos:"",finalScore:""},
+                ],
+            asList:[
+                {teamName:"",quarterPos:"",quarterScore:"",semiPos:"",semiScore:"",finalPos:"",finalScore:""},
+                ],
             showA:true,
             showB:false,
             finals:false,
@@ -130,7 +134,6 @@ export default {
                     tempData.push({teamName:row.teamname,quarterPos:row.quarterpos,quarterScore:row.quarterscore,semiPos:row.semipos,semiScore:row.semiscore,finalPos:row.finalpos,finalScore:row.finalscore});
                 })
             }
-
             accessSpreadsheet();
 
             this.listData = tempData;
@@ -193,6 +196,7 @@ export default {
         },
     },
     beforeMount(){
+        console.log(this.aqList)
         this.loadDataA();
     },
 }
