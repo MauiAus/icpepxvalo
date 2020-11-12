@@ -137,6 +137,43 @@ export default {
             this.aqList = aqData;
             this.asList = asData;
         },
+        loadDataB(){
+            const GoogleSpreadsheet = require('google-spreadsheet');
+            const { promisify } = require('util');
+
+            const creds = require('./client_secret.json');
+
+            var tempData=[];
+            var aqData=[];
+            var asData=[];
+
+            async function accessSpreadsheet(){
+                const doc = new GoogleSpreadsheet('1vCL8wCDDVVDHa34uvJX0Uc7eKI49OWQtdioEaUuUcII');
+                await promisify(doc.useServiceAccountAuth)(creds);
+                const info = await promisify(doc.getInfo)();
+                const sheet = info.worksheets[0];
+                
+                const rows = await promisify(sheet.getRows)({
+                    offset: 1
+                });
+
+                rows.forEach( row => {
+                    if(row.semipos > 0){
+                        aqData.push({teamName:row.teamname,quarterPos:row.quarterpos,quarterScore:row.quarterscore,semiPos:row.semipos,semiScore:row.semiscore,finalPos:row.finalpos,finalScore:row.finalscore});
+                    }
+                    if(row.finalpos > 0){
+                        asData.push({teamName:row.teamname,quarterPos:row.quarterpos,quarterScore:row.quarterscore,semiPos:row.semipos,semiScore:row.semiscore,finalPos:row.finalpos,finalScore:row.finalscore});
+                    }
+                    tempData.push({teamName:row.teamname,quarterPos:row.quarterpos,quarterScore:row.quarterscore,semiPos:row.semipos,semiScore:row.semiscore,finalPos:row.finalpos,finalScore:row.finalscore});
+                })
+            }
+
+            accessSpreadsheet();
+
+            this.listData = tempData;
+            this.aqList = aqData;
+            this.asList = asData;
+        },
         toggleA(){
             this.showA = true;
             this.showB = false;
@@ -147,6 +184,7 @@ export default {
             this.showA = false;
             this.showB = true;
             this.finals = false;
+            this.loadDataB();
         },
         toggleF(){
             this.showA = false;
@@ -156,7 +194,7 @@ export default {
     },
     beforeMount(){
         this.loadDataA();
-    }
+    },
 }
 </script>
 
