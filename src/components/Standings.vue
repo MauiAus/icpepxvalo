@@ -14,28 +14,36 @@
                     <div id="border2">
                     </div>
                     <div id = "teamBox">
-                        <p>{{listData[0].teamName}}</p>
+                        <p id="name">{{listData[0].teamName}}</p>
+                        <p id="score">{{listData[0].quarterScore}}</p>
                     </div>
                     <div id = "teamBox1">
-                        <p>{{listData[1].teamName}}</p>
+                        <p id="name">{{listData[1].teamName}}</p>
+                        <p id="score">{{listData[1].quarterScore}}</p>
                     </div>
                     <div id = "teamBox2">
-                        <p>{{listData[2].teamName}}</p>
+                        <p id="name">{{listData[2].teamName}}</p>
+                        <p id="score">{{listData[2].quarterScore}}</p>
                     </div>
                     <div id = "teamBox3">
-                        <p>{{listData[3].teamName}}</p>
+                        <p id="name">{{listData[3].teamName}}</p>
+                        <p id="score">{{listData[3].quarterScore}}</p>
                     </div>
                     <div id = "teamBox4">
-                        <p>{{listData[4].teamName}}</p>
+                        <p id="name">{{listData[4].teamName}}</p>
+                        <p id="score">{{listData[4].quarterScore}}</p>
                     </div>
                     <div id = "teamBox5">
-                        <p>{{listData[5].teamName}}</p>
+                        <p id="name">{{listData[5].teamName}}</p>
+                        <p id="score">{{listData[5].quarterScore}}</p>
                     </div>
                     <div id = "teamBox6">
-                        <p>{{listData[6].teamName}}</p>
+                        <p id="name">{{listData[6].teamName}}</p>
+                        <p id="score">{{listData[6].quarterScore}}</p>
                     </div>
                     <div id = "teamBox7">
-                        <p>{{listData[7].teamName}}</p>
+                        <p id="name">{{listData[7].teamName}}</p>
+                        <p id="score">{{listData[7].quarterScore}}</p>
                     </div>
                 </div>
             </div>
@@ -43,10 +51,34 @@
                 <p>Quarterfinals</p>
                 <div id="border">
                 </div>
+                <div id = "teamBox">
+                    <p id="name">{{aqList[0].teamName}}</p>
+                    <p id="score">{{aqList[0].semiScore}}</p>
+                </div>
+                <div id = "teamBox1">
+                    <p id="name">{{aqList[1].teamName}}</p>
+                    <p id="score">{{aqList[1].semiScore}}</p>
+                </div>
+                <div id = "teamBox2">
+                    <p id="name">{{aqList[2].teamName}}</p>
+                    <p id="score">{{aqList[2].semiScore}}</p>
+                </div>
+                <div id = "teamBox3">
+                    <p id="name">{{aqList[3].teamName}}</p>
+                    <p id="score">{{aqList[3].semiScore}}</p>
+                </div>
             </div>
             <div id="finals">
                 <p>Semifinals</p>
                 <div id="border">
+                </div>
+                <div id = "teamBox">
+                    <p id="name">{{asList[0].teamName}}</p>
+                    <p id="score">{{asList[0].finalScore}}</p>
+                </div>
+                <div id = "teamBox1">
+                    <p id="name">{{asList[1].teamName}}</p>
+                    <p id="score">{{asList[1].finalScore}}</p>
                 </div>
             </div>
         </div>
@@ -68,7 +100,7 @@ export default {
         }
     },
     methods:{
-        loadData(){
+        loadDataA(){
             const GoogleSpreadsheet = require('google-spreadsheet');
             const { promisify } = require('util');
 
@@ -109,8 +141,7 @@ export default {
             this.showA = true;
             this.showB = false;
             this.finals = false;
-            console.log(this.listData)
-            console.log(this.testList)
+            this.loadDataA();
         },
         toggleB(){
             this.showA = false;
@@ -124,7 +155,7 @@ export default {
         },
     },
     beforeMount(){
-        this.loadData();
+        this.loadDataA();
     }
 }
 </script>
@@ -150,6 +181,15 @@ export default {
         #quarter{
             background-color: red;
             width:33.33%;
+            #name{
+                margin-top: 6px;
+                margin-left: 4px;
+                width:85%;
+            }
+            #score{
+                margin-top: 6px;
+                margin-right:4px;
+            }
             #border1{
                 position: absolute;
                 margin-top: 10vh;
@@ -170,75 +210,102 @@ export default {
                 height:20vh;
                 width:31.33%;
                 margin-left:2vw;
+                display: flex;
             }
             #teamBox{
+                display:flex;
                 position:absolute;
                 background-color: blue;
                 height:5vh;
                 margin-top: 5vh;
                 width: 25%;
                 margin-left:2vw;
+                border-left: 5px solid #111;
+                border-radius: 2px;
             }
             #teamBox1{
+                display:flex;
                 position:absolute;
                 background-color: blue;
                 height:5vh;
                 margin-top: 10vh;
                 width: 25%;
                 margin-left:2vw;
+                border-left: 5px solid #111;
             }
             #teamBox2{
+                display:flex;
                 position:absolute;
                 background-color: blue;
                 height:5vh;
                 margin-top: 25.5vh;
                 width: 25%;
                 margin-left:2vw;
+                border-left: 5px solid #111;
             }
             #teamBox3{
+                display:flex;
                 position:absolute;
                 background-color: blue;
                 height:5vh;
                 margin-top: 30.5vh;
                 width: 25%;
                 margin-left:2vw;
+                border-left: 5px solid #111;
             }
             #teamBox4{
+                display:flex;
                 position:absolute;
                 background-color: blue;
                 height:5vh;
                 margin-top: 40vh;
                 width: 25%;
                 margin-left:2vw;
+                border-left: 5px solid #111;
             }
             #teamBox5{
+                display:flex;
                 position:absolute;
                 background-color: blue;
                 height:5vh;
                 margin-top: 45vh;
                 width: 25%;
                 margin-left:2vw;
+                border-left: 5px solid #111;
             }
             #teamBox6{
+                display:flex;
                 position:absolute;
                 background-color: blue;
                 height:5vh;
                 margin-top: 60.5vh;
                 width: 25%;
                 margin-left:2vw;
+                border-left: 5px solid #111;
             }
             #teamBox7{
+                display:flex;
                 position:absolute;
                 background-color: blue;
                 height:5vh;
                 margin-top: 65vh;
                 width: 25%;
                 margin-left:2vw;
+                border-left: 5px solid #111;
             }
         }
         #semi{
             background-color: green;
             width:33.33%;
+            #name{
+                margin-top: 6px;
+                margin-left: 4px;
+                width:85%;
+            }
+            #score{
+                margin-top: 6px;
+                margin-right:4px;
+            }
             #border{
                 position: absolute;
                 margin-top: 20vh;
@@ -248,10 +315,59 @@ export default {
                 height:35vh;
                 width:33.33%
             }
+            #teamBox{
+                display:flex;
+                position:absolute;
+                background-color: blue;
+                height:5vh;
+                margin-top: 15vh;
+                width: 25%;
+                margin-left:4vw;
+                border-left: 5px solid #111;
+            }
+            #teamBox1{
+                display:flex;
+                position:absolute;
+                background-color: blue;
+                height:5vh;
+                margin-top: 20vh;
+                width: 25%;
+                margin-left:4vw;
+                border-left: 5px solid #111;
+            }
+            #teamBox2{
+                display:flex;
+                position:absolute;
+                background-color: blue;
+                height:5vh;
+                margin-top: 50vh;
+                width: 25%;
+                margin-left:4vw;
+                border-left: 5px solid #111;
+            }
+            #teamBox3{
+                display:flex;
+                position:absolute;
+                background-color: blue;
+                height:5vh;
+                margin-top: 55vh;
+                width: 25%;
+                margin-left:4vw;
+                border-left: 5px solid #111;
+            }
         }
         #finals{
             background-color: greenyellow;
             width:33.33%;
+            #name{
+                margin-top: 6px;
+                margin-left: 4px;
+                width:85%;
+            }
+            #score{
+                margin-top: 6px;
+                margin-right:4px;
+            }
             #border{
                 position: absolute;
                 margin-top: 36vh;
@@ -259,6 +375,26 @@ export default {
                 border-right: 2px solid #ffffff;
                 height:0vh;
                 width:33.33%
+            }
+            #teamBox{
+                display:flex;
+                position:absolute;
+                background-color: blue;
+                height:5vh;
+                margin-top: 31.5vh;
+                width: 25%;
+                margin-left:4vw;
+                border-left: 5px solid #111;
+            }
+            #teamBox1{
+                display:flex;
+                position:absolute;
+                background-color: blue;
+                height:5vh;
+                margin-top: 36.5vh;
+                width: 25%;
+                margin-left:4vw;
+                border-left: 5px solid #111;
             }
         }
     }
