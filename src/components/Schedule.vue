@@ -1,5 +1,20 @@
 <template>
-    <div id="schedBox">
+    <div id="schedBody">
+        <div id="schedBox" v-for="list in schedList" :key="list.index">
+            <div v-if="list.id > 0">
+                <div id="topBox" v-if="dateCheck(list.date)">
+                    <p id="day">{{list.day}} - </p>
+                    <p id="date">{{list.date}}</p>
+                </div>
+                <div id="botBox">
+                    <h1 id="time">{{list.time}}</h1>
+                    <p id="teama">{{list.teama}}</p>
+                    <p id="score">{{list.ascore}}-{{list.bscore}}</p>
+                    <p id="teamb">{{list.teamb}}</p>
+                    <p id="type">{{list.type}}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -9,6 +24,8 @@ export default {
     data(){
         return{
             schedList:[],
+            dateTemp:"",
+            emptyCheck:"",
         }
     },
     methods:{
@@ -31,13 +48,38 @@ export default {
                 });
 
                 rows.forEach( row => {
-                    tempData.push({day:row.day,date:row.date,time:row.time,teama:row.teama,ascore:row.ascore,bscore:row.bscore,teamb:row.teamb,type:row.type});
+                    tempData.push({id:row.id,day:row.day,date:row.date,time:row.time,teama:row.teama,ascore:row.ascore,bscore:row.bscore,teamb:row.teamb,type:row.type});
                 })
+
+
             }
             accessSpreadsheet();
             this.schedList = tempData;
+
             console.log(this.schedList)
         },
+        dateCheck(date){
+            if(this.dateTemp == ""){
+                this.dateTemp = date;
+            }
+            else{
+                if(this.dateTemp == date){
+                    return false;
+                }
+                else{
+                    this.dateTemp = date;
+                    return true;
+                }
+            }
+        },
+        indexCheck(i){
+            if(i > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     },
     beforeMount(){
         this.loadData();
@@ -49,6 +91,48 @@ export default {
 #schedBox{
     float:left;
     width:100%;
+    display:grid;
+    #topBox{
+        display:flex;
+        background-color:burlywood;
+        padding-left: 5%;
+        padding-right:5%;
+        #day{
+            font-weight: bold;
+        }
+    }
+    #botBox{
+        padding-left: 5%;
+        padding-right:5%;
+        background-color: cadetblue;
+        display:flex;
+        min-height: 10vh;
+        max-height: 20vh;
+        p{
+            text-align: center;
+        }
+        #time{
+            width:20%;
+            margin:auto;
+        }
+        #teama{
+            width:20%;
+            margin:auto;
+        }
+        #score{
+            width:20%;
+            margin:auto;
+        }
+        #teamb{
+            width:20%;
+            margin:auto;
+        }
+        #type{
+            width:20%;
+            margin:auto;
+            text-align: right;
+        }
+    }
 }
 </style>
 
