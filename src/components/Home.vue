@@ -33,7 +33,7 @@ export default {
         display:block;
         padding: 3%;
         margin: auto;
-        width:500px;
+        width:300px;
         background-color: brown;
     }
     #dateBox{
